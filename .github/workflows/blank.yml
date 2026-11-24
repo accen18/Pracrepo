@@ -11,7 +11,7 @@ on:
 
 jobs:
   docker-login-dev:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: Dev
 
     steps:
@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKERHUBPASSWORD }}
 
   docker-login-qa:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     environment: Qa
 
     steps:
