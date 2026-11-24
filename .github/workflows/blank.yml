@@ -31,10 +31,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Check QA Docker credentials
+        env:
+          DOCKERHUBUSERNAME: ${{ secrets.DOCKERHUBUSERNAME }}
+          DOCKERHUBPASSWORD: ${{ secrets.DOCKERHUBPASSWORD }}
+        run: |
+          if [ -z "$DOCKERHUBUSERNAME" ] || [ -z "$DOCKERHUBPASSWORD" ]; then
+            echo "::error::Configure DOCKERHUBUSERNAME and DOCKERHUBPASSWORD secrets for the Qa environment."
+            exit 1
+          fi
+
       - name: Docker Login
         uses: docker/login-action@v2.1.0
         with:
           registry: registry-1.docker.io
           username: ${{ secrets.DOCKERHUBUSERNAME }}
           password: ${{ secrets.DOCKERHUBPASSWORD }}
-
